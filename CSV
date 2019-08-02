@@ -1,4 +1,6 @@
-import java.awt.Insets;
+
+import java.awt.*;
+
 import java.io.BufferedReader;
 
 import java.io.File;
@@ -15,6 +17,8 @@ import javafx.event.EventHandler;
 
 import javafx.scene.Scene;
 
+import javafx.scene.control.*;
+
 import javafx.scene.control.Label;
 
 import javafx.scene.control.Menu;
@@ -24,12 +28,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+
 import javafx.scene.layout.GridPane;
 
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+
+import javafx.scene.text.Font;
+
 import javafx.stage.FileChooser;
 
 import javafx.stage.Stage;
@@ -38,20 +43,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	private MenuBar rootmenu;
+    private MenuBar rootmenu;
 
-	private Menu archivo;
+    private Menu archivo;
 
-	private MenuItem cargar;
-	private MenuItem cerrar;
+    private MenuItem cargar;
 
-	private FileChooser fileChooser = new FileChooser();
+    private FileChooser fileChooser = new FileChooser();
 
-	private File selectedFile;
+    private File selectedFile;
 
-	private GridPane gridpane;
+    private GridPane gridpane;
 
-	
+
 
     public static void main(String[] args) {
 
@@ -64,145 +68,142 @@ public class Main extends Application {
     @Override
 
     public void start(Stage primaryStage) {
-    	
-        primaryStage.setTitle("CSV");
-      
 
-        
+        primaryStage.setTitle("Lector CSV");
 
-        archivo=new Menu("Documento");
 
-        
 
-        cargar=new MenuItem("Seleccionar");
 
-        cerrar=new MenuItem("Cerrar");
+
+        archivo=new Menu("Seleccionar");
+
+
+
+        cargar=new MenuItem("Cargar");
+
+
 
         archivo.getItems().add(cargar);
-        archivo.getItems().add(cerrar);
 
-        cerrar.setOnAction(new EventHandler<ActionEvent>() { 
 
-            public void handle(ActionEvent e) 
 
-            { 
-System.exit(0);
+        cargar.setOnAction(new EventHandler<ActionEvent>() {
 
-            } 
+            public void handle(ActionEvent e)
 
-        });
+            {
 
-        cargar.setOnAction(new EventHandler<ActionEvent>() { 
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
 
-            public void handle(ActionEvent e) 
+                selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-            { 
+                readCSV(selectedFile);
 
-            		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
-
-            		selectedFile = fileChooser.showOpenDialog(primaryStage);
-
-            		readCSV(selectedFile);	
-
-            } 
+            }
 
         });
 
-        
+
 
         rootmenu=new MenuBar();
 
         rootmenu.getMenus().add(archivo);
 
-        
+
 
 
 
         gridpane=new GridPane();
 
+        
+
         gridpane.setVgap(5);
 
-        gridpane.setHgap(5);
+        gridpane.setHgap(16);
 
-        gridpane.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));
 
         VBox vBox = new VBox(rootmenu,gridpane);
 
-        
+
 
         ScrollPane scrollpane=new ScrollPane();
 
         scrollpane.setContent(vBox);
 
-        
 
-        Scene scene = new Scene(scrollpane, 500, 400);
 
-       
-      
+        Scene scene = new Scene(scrollpane, 1000, 700);
+
+
+
         primaryStage.setResizable(false);
 
         primaryStage.setScene(scene);
-        
 
         primaryStage.show();
 
     }
 
-    
 
-    
 
-    
+
+
+
 
     private void readCSV(File file){
 
-    	BufferedReader br;
+        BufferedReader br;
 
-    	try {
+        try {
 
-    		
+            //  Block of code to try
 
-    		br = new BufferedReader(new FileReader(file));
+            br = new BufferedReader(new FileReader(file));
 
-    		if(br.readLine()!=null) {
+            if(br.readLine()!=null) {
 
-    			int fila=0;
+                int fila=0;
 
-    			String line;
+                String line;
 
-    			while((line = br.readLine()) !=null) {
+                while((line = br.readLine()) !=null) {
 
-    				int col=0;
+                    int columna=0;
 
-    				String [] x=line.split(";");
+                    String [] x=line.split(",",-1);
 
-    				for(String i:x) {
+                    for(String i:x) {
 
-    					gridpane.add(new Label(i),col,fila);
+                        Label h=new Label(i);
 
-    					col++;
+                        h.setFont(new Font("Arial",11));
 
-    				}
+                        gridpane.add(h,columna,fila);
 
-    				fila++;}
+                        columna++;
 
-    			}
+                    }
 
-    		else {
+                    fila++;}
 
-    			JOptionPane.showMessageDialog(null, "Introduzca un archivo valido");
+            }
 
-    		}
+            else {
 
-    		}
+                JOptionPane.showMessageDialog(null, "Introduzca un archivo con contenido.");
 
-    		catch(Exception e) {
+            }
 
-    		
-    			JOptionPane.showMessageDialog(null, "Error");
+        }
 
-    		}
+        catch(Exception e) {
+
+            //  Block of code to handle errors
+
+            JOptionPane.showMessageDialog(null, "Error ");
+
+        }
 
     }
 
+}
