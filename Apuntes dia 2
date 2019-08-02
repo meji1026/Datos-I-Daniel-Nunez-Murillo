@@ -1,0 +1,38 @@
+# Datos-I-Daniel-Nunez-Murillo
+Pograma del curso 
+Paradigmas de programación.
+En general, es una forma de ver/entender/modelar el mundo.
+En el ámbito del software, es un estilo fundamental de programación. Determina cómo el programa "ve" el mundo.
+Determina cómo debe ser usado el lenguaje por el programador.
+Algunos lenguajes son multiparadigma.
+→ No se hace una selección explícita en el código.
+Hay 4 paradigmas principales:
+→ Funcional 
+→ Lógico 
+→ Imperativo
+→ Orientado a objetos
+Paradigma Lógico :
+El mundo se modela mediante predicados logicos.
+Se aplican directamente principios de matemática discreta
+Poco utilizado en aplicaciones comerciales.
+Prolog es el principal lenguaje.
+Paradigma Funcional:
+El mundo se modela como funciones matemáticas.
+Lenguajes 100 % funcionales : Lisp, Sheme
+Permite declarar funciones, pasar funciones por parámetro, retornar funciones, entre otros.
+Muchos lenguajes modernos han incorporado este paradigma por conveniencia.
+Expresiones lambda
+Paradigma imperativo:
+El mundo se modela como instrucciones, pasos, procedimientos.
+Ampliamente utilizado en aplicaciones comerciales.
+Tienden a ser muy eficientes (Generalmente compilan en lenguaje maquina)
+Gramaticalmente simples
+Se consideran como de nivel de abstracción bajo.
+Ej: C, C++
+Paradigma orientado a objetos:
+El mundo se modela como objetos del mundo real junto con su interacción.
+Muy naturales para el ser humano.
+Facilitan la reutilización de código.
+Mayoritariamente, no generan lenguaje máquina.
+Poseen muchas estructuras sintácticas.
+Java/C++/Python/Javascript
